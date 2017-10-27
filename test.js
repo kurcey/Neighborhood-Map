@@ -56,8 +56,8 @@ function populateInfoWindow(marker, infowindowPass, locations) {
 		$
 				.ajax({
 					type : "GET",
-					url : "http://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&page="
-							+ locations.fullName + "&callback=?",
+					url : "http://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&page="+
+						    locations.fullName + "&callback=?",
 
 					contentType : "application/json; charset=utf-8",
 					async : false,
@@ -75,24 +75,24 @@ function populateInfoWindow(marker, infowindowPass, locations) {
 									'outerHTML'));
 						} else {
 							infowindow
-									.setContent("Hello user we were able to talk to the Wikibedia API <br>"
-											+ " but unfortunatly we got this error back '"
-											+ data["error"]["info"]
-											+ "<br>"
-											+ " We requested a page for this icon <b>"
-											+ locations.fullName + "</b>.");
+									.setContent("Hello user we were able to talk to the Wikibedia API <br>" +
+											" but unfortunatly we got this error back '" +
+											data.error.info +
+											"<br>" +
+											" We requested a page for this icon <b>" +
+											locations.fullName + "</b>.");
 						}
 					},
 					error : function(errorMessage) {
 						infowindow
-								.setContent("Hello user we were not able to talk to the Wikibedia API. <br>"
-										+ " We got this error back <b>'"
-										+ JSON.stringify(
+								.setContent("Hello user we were not able to talk to the Wikibedia API. <br>" +
+										" We got this error back <b>'" +
+										JSON.stringify(
 												errorMessage.statusText, null,
-												"  ")
-										+ "</b><br>"
-										+ " We requested a page for this icon <b>"
-										+ locations.fullName + "</b>.");
+												"  ") +
+										"</b><br>" +
+										" We requested a page for this icon <b>" +
+										locations.fullName + "</b>.");
 					}
 				});
 		infowindow.open(map, marker);
@@ -138,8 +138,8 @@ function setMapOnAll(map) {
 // This function takes in a COLOR, and then creates a new marker
 function makeMarkerIcon(markerColor) {
 	var markerImage = new google.maps.MarkerImage(
-			'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'
-					+ markerColor + '|40|_|%E2%80%A2', new google.maps.Size(21,
+			'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|' +
+					markerColor + '|40|_|%E2%80%A2', new google.maps.Size(21,
 					34), new google.maps.Point(0, 0), new google.maps.Point(10,
 					34), new google.maps.Size(21, 34));
 	return markerImage;
