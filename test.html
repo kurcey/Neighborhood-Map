@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<meta charset="UTF-8">
+<head>
+<link rel="stylesheet" href="test.css" />
+<script src="http://code.jquery.com/jquery-1.12.4.js"
+	integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+	crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="knockout-3.0.0.js"></script>
+<script src="test.js"></script>
+<script src="testMVC.js"></script>
+</head>
+<body>
+	<div class="container">
+		<div class="options-box">
+			<h1>Heading here</h1>
+			<hr>
+			<div>
+				<select
+					data-bind="options: addresses
+ 				, optionsText: 'title'
+ 				, value: titleFilter
+ 				, optionsCaption: 'Choose a Name to Filter'
+ 				"></select>
+
+				<select
+					data-bind="options: category
+ 				, optionsText: 'type'
+ 				, value: categoryFilter
+ 				, optionsCaption: 'Choose a category to Filter'
+ 				"></select>
+			</div>
+			<hr>
+			<div>
+				<table>
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Category</th>
+						</tr>
+					</thead>
+					<tbody data-bind="foreach: filterProducts">
+						<tr>
+							<td
+								data-bind="text: title
+				        				, click: $root.goToAddress 
+				        				, css: { backgroundHighlight: $root.chosenAddress() === $data }"></td>
+							<td data-bind="text: type"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+		<div class="menu">
+			<div class="hamburger-container" data-bind="click: toggleList">
+				<div class="hamburger-menu"></div>
+			</div>
+		</div>
+		<div id="map" class="map"></div>
+	</div>
+
+	<script async defer
+		src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyCJsH1k8dmbVmN5J0qx6dTI9yiW_DoB3rI&v=3&callback=initMap">
+		
+	</script>
+
+	<div id="article"></div>
+
+</body>
+</html>
