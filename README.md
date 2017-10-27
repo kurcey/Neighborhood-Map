@@ -39,7 +39,7 @@ Main Directory
 
 Functions of each file
 
-##README.md
+## README.md
 
     This readme file.
     
