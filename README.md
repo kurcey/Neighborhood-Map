@@ -2,11 +2,11 @@
 
 # This project is for Kurt Wanliss to be used in the Udacity FullStack Web course.
 
-#Purpose of this project:
+# Purpose of this project:
 
 Develop a single-page application featuring a map of your neighborhood or a neighborhood you would like to visit. You will then add additional functionality to this application, including: map markers to identify popular locations or places you’d like to visit, a search function to easily discover these locations, and a listview to support simple browsing of all locations. You will then research and implement third-party APIs that provide additional information about each of these locations (such as StreetView images, Wikipedia articles, Yelp reviews, etc).
 
-#Requirements of this project:
+# Requirements of this project:
 * 1. Download the Knockout framework. Knockout must be used to handle the list, filter, and any other information on the page that is subject to changing state. Things that should not be handled by Knockout: anything the Maps API is used for, creating markers, tracking click events on markers, making the map, refreshing the map. Note 1: Tracking click events on list items should be handled with Knockout. Note 2: Creating your markers as a part of your ViewModel is allowed (and recommended). Creating them as Knockout observables is not. 
 * 2. Asynchrony and Error Handling. Note that all data APIs used in the project should load asynchronously and errors should be handled gracefully. In case of error (e.g. in a situation where a third party API does not return the expected result) we expect your webpage to do one of the following: A message is displayed notifying the user that the data can't be loaded, OR There are no negative repercussions to the UI. Note: Please note that we expect students to handle errors if the browser has trouble initially reaching the 3rd-party site as well.
 * 3. Write code required to add a full-screen map to your page using the Google Maps API. For sake of efficiency, the map API should be called only once.
@@ -27,7 +27,7 @@ Develop a single-page application featuring a map of your neighborhood or a neig
 *    Bask in the beauty of the output!!!
 
 
-#This Project has the following files and folders:
+# This Project has the following files and folders:
 
 Main Directory
 * 1 README.md
