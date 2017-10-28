@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
 <meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1.0">
 <head>
 <link rel="stylesheet" href="test.css" />
-<script src="http://code.jquery.com/jquery-1.12.4.js"
-	integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
-	crossorigin="anonymous"></script>
+<script
+              src="https://code.jquery.com/jquery-3.2.1.min.js"
+              integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+              crossorigin="anonymous"></script>
 
 <script type="text/javascript" src="knockout-3.0.0.js"></script>
 <script src="test.js"></script>
@@ -13,7 +15,7 @@
 </head>
 <body>
 	<div class="container">
-		<div class="options-box">
+		<div class="options-box" data-bind="css: {displaynone: toggleList}">
 			<h1>Heading here</h1>
 			<hr>
 			<div>
@@ -53,17 +55,17 @@
 			</div>
 
 		</div>
-		<div class="menu">
-			<div class="hamburger-container" data-bind="click: toggleList">
+		<div class="menu" data-bind="css:  {displaynone: toggleList}">
+			<div class="hamburger-container" data-bind="click: toggleHighlight ">
 				<div class="hamburger-menu"></div>
 			</div>
 		</div>
-		<div id="map" class="map"></div>
+		<div id="map" class="map" data-bind="css:  {displaynone: toggleList}"></div>
 	</div>
 
 	<script async defer
-		src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyCJsH1k8dmbVmN5J0qx6dTI9yiW_DoB3rI&v=3&callback=initMap">
-		
+		src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyCJsH1k8dmbVmN5J0qx6dTI9yiW_DoB3rI&v=3&callback=initMap"
+        onerror="alert('Google maps api does not is not working at the moment. Please try again later')">		
 	</script>
 
 	<div id="article"></div>

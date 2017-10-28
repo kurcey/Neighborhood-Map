@@ -106,22 +106,23 @@ table {
 	line-height: 35px;
 	padding: 0px 10px 0px 10px;
 	text-align: left;
+    overflow-y: scroll;
 }
 
 @media only screen and (min-width: 0px) and (max-width: 599px) {
 	/* For phones: */
 	.menu {
 		height: 10%;
-		left: 80%;
+		left: 50%;
 	}
 	.map {
 		height: 90%;
-		left: 80%;
+		left: 50%;
 	}
 	.options-box {
 		overflow-y: scroll;
 		height: 100%;
-		width: 80%;
+		width: 50%;
 	}
 	.menu.displaynone {
 		height: 10%;
@@ -132,7 +133,6 @@ table {
 		left: 0%;
 	}
 	.options-box.displaynone {
-		overflow-y: scroll;
 		height: 100%;
 		line-height: 0px;
 		width: 0%;
@@ -171,11 +171,11 @@ table {
 @media only screen and (min-width: 900px) and (max-width: 4320px) {
 	/* For Desktop: */
 	.menu {
-		height: 7%;
+		height: 10%;
 		left: 30%;
 	}
 	.map {
-		height: 93%;
+		height: 90%;
 		left: 30%;
 	}
 	.options-box {

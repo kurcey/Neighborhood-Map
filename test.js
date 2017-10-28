@@ -10,7 +10,7 @@ function initMap() {
 			lat : 30.1589006,
 			lng : -81.7735147
 		},
-		zoom : 15,
+		zoom : 13,
 		mapTypeControl : false
 	});
 	startMVVC();
@@ -36,7 +36,14 @@ function putMarker(locations) {
 		stopAllMarkerBounce();
 		bounceMarker(this);
 	});
-	showListings();
+	fitMarkers();
+}
+
+// This function is used to remove elements from Wikipedia page like tag
+function removeTag(htmlContent) {
+	var regex = /(<([^>]+)>)/ig;
+	var result = htmlContent.replace(regex, "");
+	return result;
 }
 
 // This function populates the info window when the marker is clicked.
@@ -53,26 +60,18 @@ function populateInfoWindow(marker, infowindowPass, locations) {
 		infowindow.addListener('closeclick', function() {
 			infowindow.marker = null;
 		});
-		$
-				.ajax({
+		$.ajax({
 					type : "GET",
-					url : "http://en.wikipedia.org/w/api.php?action=parse&format=json&prop=text&section=0&page="+
-						    locations.fullName + "&callback=?",
-
+					url : "http://en.wikipedia.org/w/api.php?action=mobileview&prop=text&sections=0&format=json&page="
+							+ locations.fullName + "&callback=?",
 					contentType : "application/json; charset=utf-8",
 					async : false,
-					dataType : "json",
+					dataType : "jsonp",
 					success : function(data, textStatus, jqXHR) {
 						if (!data.error) {
-							var markup = data.parse.text["*"];
-							var blurb = $('<div></div>').html(markup);
-							blurb.find('a').each(function() {
-								$(this).replaceWith($(this).html());
-							});
-							blurb.find('sup').remove();
-							blurb.find('.mw-ext-cite-error').remove();
-							infowindow.setContent($(blurb).find('p').prop(
-									'outerHTML'));
+							var markup = data.mobileview.sections[0].text;
+							markup = removeTag(markup);
+							infowindow.setContent(markup);
 						} else {
 							infowindow
 									.setContent("Hello user we were able to talk to the Wikibedia API <br>" +
@@ -100,10 +99,10 @@ function populateInfoWindow(marker, infowindowPass, locations) {
 }
 
 // This function will loop through the markers array and display them all.
-function showListings() {
+function fitMarkers() {
 	google.maps.event.trigger(map, 'resize');
 	var bounds = new google.maps.LatLngBounds();
-	for (var i = 0; i < markers.length; i++) {
+	for ( var i = 0; i < markers.length; i++) {
 		markers[i].setMap(map);
 		bounds.extend(markers[i].position);
 	}
@@ -111,9 +110,21 @@ function showListings() {
 }
 
 // This function will loop through the listings and hide them all.
-function hideMarkers(markers) {
-	for (var i = 0; i < markers.length; i++) {
-		markers[i].setMap(null);
+function hideMarkers() {
+	if (infowindow)
+		infowindow.close();
+	for ( var i = 0; i < markers.length; i++) {
+		markers[i].setVisible(false);
+	}
+}
+
+// This function will display a selected marker.
+function showMarkers(marker) {
+	if (infowindow)
+		infowindow.close();
+	for ( var i = 0; i < markers.length; i++) {
+		if (marker.title == markers[i].title)
+			markers[i].setVisible(true);
 	}
 }
 
@@ -130,7 +141,7 @@ function deleteMarkers() {
 
 // Sets the map on all markers in the array.
 function setMapOnAll(map) {
-	for (var i = 0; i < markers.length; i++) {
+	for ( var i = 0; i < markers.length; i++) {
 		markers[i].setMap(map);
 	}
 }
@@ -147,7 +158,7 @@ function makeMarkerIcon(markerColor) {
 
 // This function toggles a bouncing marker passed to it
 function startMarkerBounce(markertoBounce) {
-	for (var i = 0; i < markers.length; i++) {
+	for ( var i = 0; i < markers.length; i++) {
 		if (markers[i].id == markertoBounce.title) {
 			if (markers[i].getAnimation() !== null) {
 				stopBounceMarker(markers[i]);
@@ -160,7 +171,7 @@ function startMarkerBounce(markertoBounce) {
 
 // This function turns off all bouncing marker
 function stopAllMarkerBounce() {
-	for (var i = 0; i < markers.length; i++) {
+	for ( var i = 0; i < markers.length; i++) {
 		stopBounceMarker(markers[i]);
 	}
 }
@@ -168,6 +179,9 @@ function stopAllMarkerBounce() {
 // This function turns on a bouncing marker passed to it
 function bounceMarker(marker) {
 	marker.setAnimation(google.maps.Animation.BOUNCE);
+	setTimeout(function() {
+		stopBounceMarker(marker);
+	}, 4000);
 }
 
 // This function turns off a bouncing marker passed to it
