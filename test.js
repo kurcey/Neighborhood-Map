@@ -2,6 +2,7 @@ var map;
 var markers = [];
 var placeMarkers = [];
 var infowindow = null;
+var bounds = null;
 
 // Constructor creates a new map - only center and zoom are required.
 function initMap() {
@@ -13,6 +14,10 @@ function initMap() {
 		zoom : 13,
 		mapTypeControl : false
 	});
+    bounds = new google.maps.LatLngBounds();
+    google.maps.event.addDomListener(window, 'resize', function() {
+        map.fitBounds(bounds); 
+    });
 	startMVVC();
 }
 
@@ -62,10 +67,10 @@ function populateInfoWindow(marker, infowindowPass, locations) {
 		});
 		$.ajax({
 					type : "GET",
-					url : "http://en.wikipedia.org/w/api.php?action=mobileview&prop=text&sections=0&format=json&page=" +
-							locations.fullName + "&callback=?",
+					url : "http://en.wikipedia.org/w/api.php?action=mobileview&prop=text&sections=0&format=json&page="
+							+ locations.fullName + "&callback=?",
 					contentType : "application/json; charset=utf-8",
-					async : false,
+					async : true,
 					dataType : "jsonp",
 					success : function(data, textStatus, jqXHR) {
 						if (!data.error) {
@@ -101,7 +106,7 @@ function populateInfoWindow(marker, infowindowPass, locations) {
 // This function will loop through the markers array and display them all.
 function fitMarkers() {
 	google.maps.event.trigger(map, 'resize');
-	var bounds = new google.maps.LatLngBounds();
+	//var bounds = new google.maps.LatLngBounds();
 	for ( var i = 0; i < markers.length; i++) {
 		markers[i].setMap(map);
 		bounds.extend(markers[i].position);
@@ -181,7 +186,7 @@ function bounceMarker(marker) {
 	marker.setAnimation(google.maps.Animation.BOUNCE);
 	setTimeout(function() {
 		stopBounceMarker(marker);
-	}, 4000);
+	}, 2800);
 }
 
 // This function turns off a bouncing marker passed to it

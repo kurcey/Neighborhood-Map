@@ -49,9 +49,9 @@ function AddressViewModel() {
 	};
 
 	// Category drop down Data
-	self.category = ko.observableArray([ new catregoryInfo("All"),
-			new catregoryInfo("Home"), new catregoryInfo("Resturant"),
-			new catregoryInfo("Shop"), new catregoryInfo("School") ]);
+	self.category = ko.observableArray([ new catregoryInfo("Home"), 
+            new catregoryInfo("Resturant"),	new catregoryInfo("Shop"), 
+            new catregoryInfo("School") ]);
 
 	// Marker Data
 	self.addresses = ko
@@ -101,24 +101,32 @@ function AddressViewModel() {
 	// Function to enable drop down filter of the marker title
 	self.titleFilter.subscribe(function(newValue) {
 		if (self.titleFilter() != undefined) {
-			self.currentFilter(newValue.title);
-			self.categoryFilter(undefined)
+            self.currentFilter(newValue.title);
+			//self.categoryFilter(undefined);
 		}
+        else{
+            self.currentFilter("Reset");
+            self.categoryFilter(undefined);
+            }
 	});
 
 	// Function to enable drop down filter of the marker category
 	self.categoryFilter.subscribe(function(newValue) {
 		if (self.categoryFilter() != undefined) {
 			self.currentFilter(newValue.type);
-			self.titleFilter(undefined);
+			//self.titleFilter(undefined);            
 		}
+        else{
+             self.currentFilter("Reset");
+             self.titleFilter(undefined);
+            }
 	});
 
 	// Function that does the filtering of the marker title and category
 	self.filterProducts = ko.computed(function() {
 		hideMarkers();
 		self.chosenAddress("");
-		if (!self.currentFilter() || self.currentFilter() == 'All') {
+		if (!self.currentFilter() || self.currentFilter() == 'Reset' ) {
 			deleteMarkers();
 			ko.utils.arrayForEach(self.addresses(), function(feature) {
 				putMarker(feature);
