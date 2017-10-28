@@ -62,8 +62,8 @@ function populateInfoWindow(marker, infowindowPass, locations) {
 		});
 		$.ajax({
 					type : "GET",
-					url : "http://en.wikipedia.org/w/api.php?action=mobileview&prop=text&sections=0&format=json&page="
-							+ locations.fullName + "&callback=?",
+					url : "http://en.wikipedia.org/w/api.php?action=mobileview&prop=text&sections=0&format=json&page=" +
+							locations.fullName + "&callback=?",
 					contentType : "application/json; charset=utf-8",
 					async : false,
 					dataType : "jsonp",
